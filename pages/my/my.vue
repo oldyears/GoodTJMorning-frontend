@@ -13,17 +13,19 @@
 
     <view class="my-center">
       <!-- 头像展示部分 -->
-      <head
-        :psersonUrl="psersonUrl"
+      <head-info
+        :personUrl="personUrl"
         :nickName="nickName"
         :gender="gender"
         :phoneNumber="phoneNumber"
         :getPhoneNum="getPhoneNum"
-      ></head>
+      ></head-info>
 
       <view class="container">
         <!-- 地址和历史订单 -->
-        <order-info @goAddress="goAddress" @goOrder="goOrder"></order-info>
+        <order-info 
+		:isDeliver="isDeliver"
+		@goAddress="goAddress" @goOrder="goOrder" @goDeliver="goDeliver"></order-info>
         <!-- 最近订单 -->
         <!-- 最近订单title -->
         <view
@@ -50,7 +52,7 @@
 </template>
 
 <script>
-import { getOrderPage, repetitionOrder, delShoppingCart } from "../api/api.js";
+import { getOrderPage, repetitionOrder, delShoppingCart, getUserPermission } from "../api/api.js";
 import { mapMutations } from "vuex";
 import { statusWord, getOvertime } from "@/utils/index.js";
 
@@ -60,7 +62,7 @@ import OrderList from "./components/orderList.vue"; //最近订单
 export default {
   data() {
     return {
-      psersonUrl: "../../static/btn_waiter_sel.png",
+      personUrl: "../../static/btn_waiter_sel.png",
       nickName: "",
       gender: "0",
       phoneNumber: "18500557668",
@@ -78,6 +80,7 @@ export default {
       },
       loadingText: "",
       loading: false,
+	  isDeliver: false,
     };
   },
   components: {
@@ -91,9 +94,10 @@ export default {
     },
   },
   onLoad() {
-    this.psersonUrl =
+    this.personUrl =
       this.$store.state.baseUserInfo &&
       this.$store.state.baseUserInfo.avatarUrl;
+	  console.log(this.personUrl);
     this.nickName =
       this.$store.state.baseUserInfo && this.$store.state.baseUserInfo.nickName;
     this.gender =
@@ -103,6 +107,9 @@ export default {
     this.getList();
   },
   created() {},
+  mounted() {
+	  this.checkUserPermission();
+  },
   onReady() {
     uni.getSystemInfo({
       success: (res) => {
@@ -115,6 +122,16 @@ export default {
     statusWord(obj) {
       return statusWord(obj.status, obj.time);
     },
+	checkUserPermission() {
+	      // 根据实际情况,检查用户是否为快递员
+	      // 例如可以向后端发送请求,获取用户角色信息
+		getUserPermission(1).then((res) => {
+			if (res.code === 1) {
+				this.isDeliver = res.data;
+			}
+		})
+	    this.isDeliver = false; // 假设用户为快递员
+	},
     getOvertime(time) {
       return getOvertime(time);
     },
@@ -150,6 +167,14 @@ export default {
         url: "/pages/historyOrder/historyOrder",
       });
     },
+	// 去配送页面
+	goDeliver() {
+		this.setAddressBackUrl("/pages/my/my");
+		// TODO
+		uni.redirectTo({
+		  url: "/pages/address/address?form=" + "my",
+		});
+	},
     async oneOrderFun(id) {
       let pages = getCurrentPages();
       let routeIndex = pages.findIndex(

@@ -163,7 +163,7 @@ var _default = {
   // 获取父级传的数据
   props: {
     // 头像
-    psersonUrl: {
+    personUrl: {
       type: String,
       default: ''
     },

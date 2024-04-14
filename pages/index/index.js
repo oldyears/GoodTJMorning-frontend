@@ -194,22 +194,23 @@ export default {
 						if (res.confirm) {
 							let jsCode = ""
 							uni.login({
-								provider: "weixin",
+								provider: 'weixin',
 								success: (loginRes) => {
-									if (loginRes.errMsg === "login:ok") {
+									if (loginRes.errMsg === 'login:ok') {
 										jsCode = loginRes.code
 									}
 								},
 							})
 							// 授权
 							uni.getUserProfile({
-								desc: "登录",
+								desc: '登录',
 								success: function (userInfo) {
 									_this.setBaseUserInfo(userInfo.userInfo)
 									const params = {
 										code: jsCode,
 										// 传递地理位置信息
 									}
+									console.log(userInfo.userInfo, 11)
 									// 获取定位信息
 									uni.getLocation({
 										type: 'gcj02', isHighAccuracy: true

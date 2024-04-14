@@ -13,8 +13,10 @@
       <text class="order_word">历史订单</text>
       <image class="to_right" src="../../../static/toRight.png" mode=""></image>
     </view>
-	<view class="louzhang" @click="LZ">
-		  <text class="LZ_word">楼长管理</text>
+	<view v-if="isDeliver" class="deliver" @click="goDeliver">
+		<image class="location" src="../../../static/btn_waiter_sel.png"></image>
+		<text class="deliver_word">楼长管理</text>
+		<image class="to_right" src="../../../static/toRight.png"></image>
 	</view>
   </view>
 </template>
@@ -29,14 +31,23 @@ export default {
     goOrder() {
       this.$emit("goOrder");
     },
+	goDeliver() {
+		this.$emit("goDeliver");
+	}
   },
+  props: {
+	  isDeliver:{
+		  type:Boolean,
+		  default: false,
+	  }
+  }
 };
 </script>
 <style lang="scss" scoped>
     // 地址及订单
     .address_order {
       width: 710rpx;
-      height: 200rpx;
+      height: auto;
       margin: 20rpx auto;
       margin-top: 0;
       // 地址
@@ -109,6 +120,42 @@ export default {
           transform: translateY(-50%);
         }
       }
+	  // 配送
+	  .deliver {
+		  line-height: 100rpx;
+		  position: relative;
+		  border-top: 1px dashed #ebebeb;
+		  margin-left: 30rpx;
+		  margin-right: 20rpx;
+		  .location {
+		    width: 34rpx;
+		    height: 36rpx;
+		    margin-right: 8rpx;
+		    vertical-align: middle;
+		    margin-bottom: 4rpx;
+		  }
+		  .deliver_word {
+		    opacity: 1;
+		    font-size: 28rpx;
+		    font-family: PingFangSC, PingFangSC-Regular;
+		    font-weight: 400;
+		    text-align: center;
+		    color: #333333;
+		    line-height: 40rpx;
+		  }
+		  .to_right {
+		    // width: 12rpx;
+		    // height: 20rpx;
+		    width: 30rpx;
+		    height: 30rpx;
+		    vertical-align: middle;
+		    color: #fff;
+		    position: absolute;
+		    top: 50%;
+		    right: 0;
+		    transform: translateY(-50%);
+		  }
+	  }
     }
 
     // 最近订单

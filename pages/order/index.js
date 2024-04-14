@@ -30,7 +30,7 @@ export default {
 			platform: 'ios',
 			orderDishPrice: 0,
 			openPayType: false,
-			psersonUrl: '../../static/btn_waiter_sel.png',
+			personUrl: '../../static/btn_waiter_sel.png',
 			nickName: '',//名字
 			gender: 0,
 			phoneNumber: '',//电话
@@ -136,7 +136,7 @@ export default {
 	},
 	async onLoad(options) {
 		this.initPlatform()
-		this.psersonUrl = this.$store.state.baseUserInfo && this.$store.state.baseUserInfo.avatarUrl
+		this.personUrl = this.$store.state.baseUserInfo && this.$store.state.baseUserInfo.avatarUrl
 		this.nickName = this.$store.state.baseUserInfo && this.$store.state.baseUserInfo.nickName
 		this.gender = this.$store.state.baseUserInfo && this.$store.state.baseUserInfo.gender
 		this.remark = this.remarkData()

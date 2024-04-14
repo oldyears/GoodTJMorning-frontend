@@ -201,7 +201,7 @@ var OrderList = function OrderList() {
 var _default = {
   data: function data() {
     return {
-      psersonUrl: "../../static/btn_waiter_sel.png",
+      personUrl: "../../static/btn_waiter_sel.png",
       nickName: "",
       gender: "0",
       phoneNumber: "18500557668",
@@ -218,7 +218,8 @@ var _default = {
         total: 0
       },
       loadingText: "",
-      loading: false
+      loading: false,
+      isDeliver: false
     };
   },
   components: {
@@ -232,13 +233,17 @@ var _default = {
     }
   },
   onLoad: function onLoad() {
-    this.psersonUrl = this.$store.state.baseUserInfo && this.$store.state.baseUserInfo.avatarUrl;
+    this.personUrl = this.$store.state.baseUserInfo && this.$store.state.baseUserInfo.avatarUrl;
+    console.log(this.personUrl);
     this.nickName = this.$store.state.baseUserInfo && this.$store.state.baseUserInfo.nickName;
     this.gender = this.$store.state.baseUserInfo && this.$store.state.baseUserInfo.gender;
     this.phoneNumber = this.$store.state.shopPhone && this.$store.state.shopPhone;
     this.getList();
   },
   created: function created() {},
+  mounted: function mounted() {
+    this.checkUserPermission();
+  },
   onReady: function onReady() {
     var _this = this;
     uni.getSystemInfo({
@@ -251,22 +256,33 @@ var _default = {
     statusWord: function statusWord(obj) {
       return (0, _index.statusWord)(obj.status, obj.time);
     },
+    checkUserPermission: function checkUserPermission() {
+      var _this2 = this;
+      // 根据实际情况,检查用户是否为快递员
+      // 例如可以向后端发送请求,获取用户角色信息
+      (0, _api.getUserPermission)(1).then(function (res) {
+        if (res.code === 1) {
+          _this2.isDeliver = res.data;
+        }
+      });
+      this.isDeliver = false; // 假设用户为快递员
+    },
     getOvertime: function getOvertime(time) {
       return (0, _index.getOvertime)(time);
     },
     // 获取列表数据
     getList: function getList() {
-      var _this2 = this;
+      var _this3 = this;
       var params = {
         pageSize: 10,
         page: this.pageInfo.page
       };
       (0, _api.getOrderPage)(params).then(function (res) {
         if (res.code === 1) {
-          _this2.recentOrdersList = _this2.recentOrdersList.concat(res.data.records);
-          _this2.pageInfo.total = res.data.total;
-          _this2.loadingText = "";
-          _this2.loading = false;
+          _this3.recentOrdersList = _this3.recentOrdersList.concat(res.data.records);
+          _this3.pageInfo.total = res.data.total;
+          _this3.loadingText = "";
+          _this3.loading = false;
         }
       });
     },
@@ -283,6 +299,14 @@ var _default = {
       // TODO
       uni.navigateTo({
         url: "/pages/historyOrder/historyOrder"
+      });
+    },
+    // 去配送页面
+    goDeliver: function goDeliver() {
+      this.setAddressBackUrl("/pages/my/my");
+      // TODO
+      uni.redirectTo({
+        url: "/pages/address/address?form=" + "my"
       });
     },
     oneOrderFun: function oneOrderFun(id) {

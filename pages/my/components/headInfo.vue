@@ -3,7 +3,7 @@
     <view class="my_info">
         <!-- 头像部分 -->
         <view class="head">
-          <image class="head_image" :src="psersonUrl"></image>
+          <image class="head_image" :src="personUrl"></image>
         </view>
         <!-- 姓名及手机号 -->
         <view class="phone_name">
@@ -33,7 +33,7 @@ export default {
   // 获取父级传的数据
   props: {
     // 头像
-    psersonUrl: {
+    personUrl: {
       type: String,
       default: '',
     },
@@ -59,6 +59,7 @@ export default {
     }
   },
 };
+
 </script>
 <style lang="scss" scoped>
 .my_info {

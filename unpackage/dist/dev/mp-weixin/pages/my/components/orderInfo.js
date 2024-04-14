@@ -140,6 +140,8 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 var _default = {
   methods: {
     //去地址列表页
@@ -149,6 +151,15 @@ var _default = {
     //去历史订单页
     goOrder: function goOrder() {
       this.$emit("goOrder");
+    },
+    goDeliver: function goDeliver() {
+      this.$emit("goDeliver");
+    }
+  },
+  props: {
+    isDeliver: {
+      type: Boolean,
+      default: false
     }
   }
 };

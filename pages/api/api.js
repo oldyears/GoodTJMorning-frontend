@@ -97,6 +97,15 @@ export const userLogin = (params) => {
 	})
 }
 
+// 检查用户权限
+export const getUserPermission = (id) => {
+	return request({
+		url: `/user/user/check/?id=${id}`,
+		method: 'Get',
+		params: { id }
+	})
+}
+
 // 菜品和套餐的分类
 export const getCategoryList = (params) => {
 	return request({
