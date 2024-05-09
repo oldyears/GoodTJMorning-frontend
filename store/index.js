@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {
+	  getAddressInfo,
+	} from "../pages/api/api.js"
 
 Vue.use(Vuex)
 
@@ -20,6 +23,8 @@ const store = new Vuex.Store({
 		arrivals: '',
 		remarkData: '',//备注
 		addressData: {}, //地址选择
+		addressDataList: [], // 所有地址信息
+		addressDataMap: {},
 		deliveryFee: 0,// 配送费
 		gender: 0 // 收货地址对应的 性别  0 先生  1 女士
 	},
@@ -72,6 +77,12 @@ const store = new Vuex.Store({
 		setAddress(state, provider) {
 			state.addressData = provider
 		},
+		setAddressDataList(state, data) {
+			state.addressDataList = data
+		},
+		setAddressDataMap(state, data) {
+			state.addressDataMap = data;
+		},
 		// 保存配送费
 		setDeliveryFee(state, deliveryFee) {
 			state.deliveryFee = deliveryFee
@@ -82,7 +93,48 @@ const store = new Vuex.Store({
 		}
 	},
 	actions: {
-
+		fetchAddressData({ commit }) {
+		      // 从接口获取地址数据
+		      const data = [];
+			  const map_data = {};
+			  getAddressInfo()
+			  	.then((res) => {
+			  		if (res.code == 1) {
+			  			res.data.forEach(item => {
+			  				// 处理校区信息
+			  				const campusIndex = data.findIndex(campus => campus.campusCode === item.campusCode);
+			  				if (campusIndex === -1) {
+			  					data.push({
+			  						campusCode: item.campusCode,
+			  						campusName: item.campusName,
+			  						dormData: [
+			  							{
+			  								addressCode: item.buildingCode,
+			  								addressName: item.buildingName,
+			  								id: item.id
+			  							}
+			  						]
+			  					})
+			  				}
+			  				else {
+			  					data[campusIndex].dormData.push({
+			  						addressCode: item.buildingCode,
+			  						addressName: item.buildingName,
+			  						id: item.id
+			  					})
+			  				}
+							map_data[item.id] = {
+								campusCode: item.campusCode,
+								campusName: item.campusName,
+								addressCode: item.buildingCode,
+								addressName: item.buildingName,
+							};
+			  			});
+			  		}
+			  	});
+		      commit('setAddressDataList', data)
+			  commit('setAddressDataMap', map_data);
+		    }
 	}
 })
 

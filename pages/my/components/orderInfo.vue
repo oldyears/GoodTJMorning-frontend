@@ -13,7 +13,7 @@
       <text class="order_word">历史订单</text>
       <image class="to_right" src="../../../static/toRight.png" mode=""></image>
     </view>
-	<view v-if="isDeliver" class="deliver" @click="goDeliver">
+	<view class="deliver" @click="goDeliver">
 		<image class="location" src="../../../static/btn_waiter_sel.png"></image>
 		<text class="deliver_word">楼长管理</text>
 		<image class="to_right" src="../../../static/toRight.png"></image>

@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/details/index"],{
 
 /***/ 64:
-/*!**************************************************************************************************************************************************************!*\
-  !*** F:/homework_set/third-dowm/专综/project-rjwm-weixin-uniapp-develop-wsy/project-rjwm-weixin-uniapp-develop-wsy/main.js?{"page":"pages%2Fdetails%2Findex"} ***!
-  \**************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************!*\
+  !*** F:/homework_set/third-dowm/专综/project-rjwm-weixin-uniapp-develop-wsy/GoodTJMorning-frontend/main.js?{"page":"pages%2Fdetails%2Findex"} ***!
+  \**********************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22,9 +22,9 @@ createPage(_index.default);
 /***/ }),
 
 /***/ 65:
-/*!*******************************************************************************************************************************************!*\
-  !*** F:/homework_set/third-dowm/专综/project-rjwm-weixin-uniapp-develop-wsy/project-rjwm-weixin-uniapp-develop-wsy/pages/details/index.vue ***!
-  \*******************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** F:/homework_set/third-dowm/专综/project-rjwm-weixin-uniapp-develop-wsy/GoodTJMorning-frontend/pages/details/index.vue ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -65,9 +65,9 @@ component.options.__file = "pages/details/index.vue"
 /***/ }),
 
 /***/ 66:
-/*!**************************************************************************************************************************************************************************************!*\
-  !*** F:/homework_set/third-dowm/专综/project-rjwm-weixin-uniapp-develop-wsy/project-rjwm-weixin-uniapp-develop-wsy/pages/details/index.vue?vue&type=template&id=54d3589c&scoped=true& ***!
-  \**************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************!*\
+  !*** F:/homework_set/third-dowm/专综/project-rjwm-weixin-uniapp-develop-wsy/GoodTJMorning-frontend/pages/details/index.vue?vue&type=template&id=54d3589c&scoped=true& ***!
+  \**********************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -87,9 +87,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 67:
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!F:/homework_set/third-dowm/专综/project-rjwm-weixin-uniapp-develop-wsy/project-rjwm-weixin-uniapp-develop-wsy/pages/details/index.vue?vue&type=template&id=54d3589c&scoped=true& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!F:/homework_set/third-dowm/专综/project-rjwm-weixin-uniapp-develop-wsy/GoodTJMorning-frontend/pages/details/index.vue?vue&type=template&id=54d3589c&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -103,10 +103,10 @@ var components
 try {
   components = {
     uniNavBar: function () {
-      return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 177))
+      return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 185))
     },
     uniPopup: function () {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 212))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 220))
     },
   }
 } catch (e) {

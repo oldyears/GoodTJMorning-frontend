@@ -20,18 +20,18 @@
 
 					<picker-view-column>
 						<!-- #ifndef APP-NVUE -->
-						<view class="picker-item" v-for="(item,index) in campusDataList" :key="index">{{item.label}}</view>
+						<view class="picker-item" v-for="(item,index) in campusDataList" :key="index">{{item.campusName}}</view>
 						<!-- #endif -->
 						<!-- #ifdef APP-NVUE -->
-						<text class="picker-item" v-for="(item,index) in campusDataList" :key="index">{{item.label}}</text>
+						<text class="picker-item" v-for="(item,index) in campusDataList" :key="index">{{item.campusName}}</text>
 						<!-- #endif -->
 					</picker-view-column>
 					<picker-view-column>
 						<!-- #ifndef APP-NVUE -->
-						<view class="picker-item" v-for="(item,index) in dormDataList" :key="index">{{item.label}}</view>
+						<view class="picker-item" v-for="(item,index) in dormDataList" :key="index">{{item.addressName}}</view>
 						<!-- #endif -->
 						<!-- #ifdef APP-NVUE -->
-						<text class="picker-item" v-for="(item,index) in dormDataList" :key="index">{{item.label}}</text>
+						<text class="picker-item" v-for="(item,index) in dormDataList" :key="index">{{item.addressName}}</text>
 						<!-- #endif -->
 
 					</picker-view-column>
@@ -45,8 +45,7 @@
 </template>
 
 <script>
-	import campusData from './city-data/campus.js';
-	import dormData from './city-data/dorm.js';
+	import { mapState } from 'vuex';
 	export default {
 		name: "simpleAddress",
 		props: {
@@ -93,7 +92,7 @@
 				showPopup: false,
 				pickerValue: [0, 0],
 				campusDataList: [],
-				dormDataList: [],
+				dormDataList: []
 			}
 		},
 		watch: {
@@ -108,31 +107,36 @@
 				this.init();
 			}
 		},
+		computed: {
+		    ...mapState(['addressDataList'])
+		  },
 		created() {
-			this.init()
+			this.init();
 		},
 		methods: {
 			init() {
+				this.campusDataList = this.addressDataList;
 				this.handPickValueDefault(); // 对 pickerValueDefault 做兼容处理
-				this.campusDataList = campusData;
-				this.dormDataList = dormData[this.pickerValueDefault[0]];
+				this.dormDataList = this.campusDataList[this.pickerValueDefault[0]].dormData;
 				this.pickerValue = this.pickerValueDefault;
 			},
+			
 			handPickValueDefault() {
 				if (this.pickerValueDefault !== [0, 0]) {
-					if (this.pickerValueDefault[0] > campusData.length - 1) {
-						this.pickerValueDefault[0] = campusData.length - 1;
+					if (this.pickerValueDefault[0] > this.campusDataList.length - 1) {
+						this.pickerValueDefault[0] = this.campusDataList.length - 1;
 					}
-					if (this.pickerValueDefault[1] > dormData[this.pickerValueDefault[0]].length - 1) {
-						this.pickerValueDefault[1] = dormData[this.pickerValueDefault[0]].length - 1;
+					if (this.pickerValueDefault[1] > this.campusDataList[this.pickerValueDefault[0]].dormData.length - 1) {
+						this.pickerValueDefault[1] = this.campusDataList[this.pickerValueDefault[0]].dormData.length - 1;
 					}
 				}
 			},
+			
 			pickerChange(e) {
 				let changePickerValue = e.detail.value;
 				if (this.pickerValue[0] !== changePickerValue[0]) {
 					// 第一级发生滚动
-					this.dormDataList = dormData[changePickerValue[0]];
+					this.dormDataList = this.campusDataList[changePickerValue[0]].dormData;
 					changePickerValue[1] = 0;
 					changePickerValue[2] = 0;
 				} 
@@ -143,29 +147,21 @@
 				let pickObj = {
 					label: this._getLabel(),
 					value: this.pickerValue,
-					campusCode: this._getCampusCode(),
-					dormCode: this._getDormCode()
+					id: this._getAddressId()
+					// campusCode: this._getCampusCode(),
+					// dormCode: this._getDormCode()
 				};
 				this.$emit(emitName, pickObj);
 			},
 			_getLabel() {
-				// let pcikerLabel =
-				// 	this.provinceDataList[this.pickerValue[0]].label +
-				// 	'/' +
-				// 	this.cityDataList[this.pickerValue[1]].label +
-				// 	'/' +
-				// 	this.areaDataList[this.pickerValue[2]].label;
 				let pickerLabel = 
-					this.campusDataList[this.pickerValue[0]].label +
+					this.campusDataList[this.pickerValue[0]].campusName +
 					'/' +
-					this.dormDataList[this.pickerValue[1]].label;
+					this.dormDataList[this.pickerValue[1]].addressName;
 				return pickerLabel;
 			},
-			_getCampusCode() {
-				return this.campusDataList[this.pickerValue[0]].value;
-			},
-			_getDormCode() {
-				return this.dormDataList[this.pickerValue[1]].value;
+			_getAddressId() {
+				return this.campusDataList[this.pickerValue[0]].dormData[this.pickerValue[1]].id;
 			},
 			clear() {
 

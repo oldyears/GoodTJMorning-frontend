@@ -93,12 +93,32 @@
         "navigationBarBackgroundColor": "#333333"
 
       }
+    },
+    {
+    	"path" : "pages/employee/employee_login",
+    	"style" : 
+    	{
+    		"navigationStyle": "custom",
+    		"navigationBarTitleText": "新增收获地址",
+    		"enablePullDownRefresh": false,
+    		"navigationBarBackgroundColor": "#333333"
+    	}
+    },
+    {
+    	"path" : "pages/employee/employee_QRcode",
+    	"style" : 
+    	{
+    		"navigationBarTextStyle": "black",
+    		"navigationBarTitleText": "管理员微信",
+    		"navigationBarBackgroundColor": "#a7f3c9",
+    		"backgroundColor": "#000000"
+    	}
     }
     ],
   "globalStyle": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "苍穹外卖",
-    "navigationBarBackgroundColor": "#E95F3C",
+    "navigationBarTitleText": "醒了么",
+    "navigationBarBackgroundColor": "#a7f3c9",
     // "navigationBarBackground": "#E95F3C",
     "backgroundColor": "#F8F8F8"
   },

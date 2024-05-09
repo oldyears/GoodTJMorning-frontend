@@ -134,7 +134,10 @@ import {
   delAddressBook,
   queryAddressBookById,
   editAddressBook,
+  getCampusInfo,
+  getAddressInfo,
 } from "../api/api.js"
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -179,16 +182,13 @@ export default {
         phone: "",
         type: 1,
         sex: "0",
-        // provinceCode: "11",
-        // provinceName: "",
-        // cityCode: "1101",
-        // cityName: "",
-        // districtCode: "110102",
-        // districtName: "",
 		campusCode: "11",
 		campusName: "",
 		dormCode: "1101",
 		dormName: "",
+		is_default: 1,
+		id: 0,
+		addressId: 0,
         detail: "",
       },
       // 联动省市县
@@ -226,8 +226,9 @@ export default {
     statusBarHeight () {
       return uni.getSystemInfoSync().statusBarHeight + "px"
     },
+	...mapState(['addressDataMap']),
   },
-  created () { },
+  created () {  },
   methods: {
     init () {
       const res = uni.getSystemInfoSync()
@@ -238,32 +239,30 @@ export default {
         url: "/pages/address/address",
       })
     },
+	
+	
     // 查询地址详情接口
     queryAddressBookById (id) {
       queryAddressBookById({ id }).then((res) => {
         if (res.code === 1) {
           this.form = {
-            provinceCode: res.data.provinceCode,
-            cityCode: res.data.cityCode,
-            districtCode: res.data.districtCode,
             phone: res.data.phone,
             name: res.data.consignee,
             sex: res.data.sex,
-            type: Number(res.data.label),
             detail: res.data.detail,
-            id: res.data.id,
+            addressId: res.data.addressId,
+			detail: res.data.domitory,
+			id: res.data.id,
+			is_default: res.data.is_default,
           }
           if (
-            res.data.provinceName &&
-            res.data.cityName &&
-            res.data.districtName
+            this.addressDataMap[res.data.addressId].campusName &&
+            this.addressDataMap[res.data.addressId].addressName
           ) {
             this.address =
-              res.data.provinceName +
+              this.addressDataMap[res.data.addressId].campusName +
               "/" +
-              res.data.cityName +
-              "/" +
-              res.data.districtName
+              this.addressDataMap[res.data.addressId].addressName
           }
         }
       })
@@ -280,9 +279,10 @@ export default {
       // this.form.provinceCode = e.provinceCode
       // this.form.cityCode = e.cityCode
       // this.form.districtCode = e.areaCode
-	  this.form.campusCode = e.campusCode
-	  this.form.dormCode = e.dormCode
+	  // this.form.campusCode = e.campusCode
+	  // this.form.dormCode = e.dormCode
       // 把选择的地址回显到input框中
+	  this.form.addressId = e.id
       this.address = e.label
     },
     bindTextAreaBlur: function (e) {
@@ -352,12 +352,16 @@ export default {
           })
         }
       }
+
       const params = {
-        ...this.form,
-        label: this.form.type,
+		id: this.form.id,
+		userId: 1,
         consignee: this.form.name,
-		campusName: this.address.split("/")[0],
-		dormName: this.address.split("/")[1],
+		sex: this.form.sex,
+		phone: this.form.phone,
+		domitory: this.form.detail,
+		is_default: this.form.is_default,
+		addressId: this.form.addressId,
       }
       // 编辑
       if (this.showDel) {
@@ -394,11 +398,8 @@ export default {
           this.form.name = ""
           this.form.phone = ""
           this.form.address = ""
-          this.form.type = 1
-          this.form.radio = 0
-          this.form.provinceCode = "11"
-          this.form.cityCode = "1101"
-          this.form.districtCode = "110102"
+		  this.form.addressId = ""
+		  this.form.sex = 1
         }
       })
     },

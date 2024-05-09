@@ -97,14 +97,6 @@ export const userLogin = (params) => {
 	})
 }
 
-// 检查用户权限
-export const getUserPermission = (id) => {
-	return request({
-		url: `/user/user/check/?id=${id}`,
-		method: 'Get',
-		params: { id }
-	})
-}
 
 // 菜品和套餐的分类
 export const getCategoryList = (params) => {
@@ -240,21 +232,21 @@ export const putAddressBookDefault = (params) => {
 	})
 }
 
-// 获取地址预设信息
+
+// 查询所有地址信息（可根据校区条件查询）
 export const getAddressInfo = (params) => {
 	return request({
-		url: 'user/addressBook',
-		method: 'POST',
+		url: '/user/address/list',
+		method: 'GET',
 		params
 	})
 }
-
 
 // 新增地址接口
 export const addAddressBook = (params) => {
 	return request({
 		url: '/user/addressBook',
-		method: 'GET',
+		method: 'POST',
 		params
 	})
 }
@@ -280,8 +272,7 @@ export const delAddressBook = (id) => {
 // 查询地址通过id
 export const queryAddressBookById = (params) => {
 	return request({
-		// url: `/user/addressBook/${params.id}`,
-		url: '/user/addressBook/1',
+		url: `/user/addressBook/${params.id}`,
 		method: 'GET',
 		params
 	})
@@ -385,4 +376,10 @@ export const queryOrdersCheckStatus = (params) =>
 		params
 	})
 
-
+// 楼长登录
+export const employeeLogin = (params) =>
+	request({
+		url: `/user/employee/login`,
+		method: 'POST',
+		params
+	})

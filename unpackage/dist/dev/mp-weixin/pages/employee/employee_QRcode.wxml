@@ -1,0 +1,1 @@
+<view class="container"><image class="QRcode" src="../../static/QRcode.jpg" mode="aspectFit"></image></view>

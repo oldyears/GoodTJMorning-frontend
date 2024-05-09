@@ -10,13 +10,15 @@
     "pages/remark/index",
     "pages/my/my",
     "pages/addOrEditAddress/addOrEditAddress",
-    "pages/historyOrder/historyOrder"
+    "pages/historyOrder/historyOrder",
+    "pages/employee/employee_login",
+    "pages/employee/employee_QRcode"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "苍穹外卖",
-    "navigationBarBackgroundColor": "#E95F3C",
+    "navigationBarTitleText": "醒了么",
+    "navigationBarBackgroundColor": "#a7f3c9",
     "backgroundColor": "#F8F8F8"
   },
   "requiredPrivateInfos": [

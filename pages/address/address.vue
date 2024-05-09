@@ -36,8 +36,7 @@
                   getLableVal(item.label)
                 }}</text>
                 <text class="address_word"
-                  >{{ item.provinceName }}{{ item.cityName
-                  }}{{ item.districtName }}{{ item.detail }}</text
+                  >{{ item.campusName }}{{ item.addressName}}{{ item.domitory }}</text
                 >
               </view>
               <!-- 性别及手机号 -->
@@ -96,7 +95,7 @@
 </template>
 
 <script>
-import { queryAddressBookList, putAddressBookDefault } from "../api/api.js";
+import { queryAddressBookList, putAddressBookDefault, getAddressInfo } from "../api/api.js";
 import { mapState, mapMutations } from "vuex";
 import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue";
 import Empty from "@/components/empty/empty";
@@ -115,6 +114,7 @@ export default {
     };
   },
   onShow(options) {
+	this.$store.dispatch('fetchAddressData');	// 这里给全局地址信息赋值
     this.getAddressList();
     if (options && options.form) {
       this.formRouter = "";
@@ -123,6 +123,8 @@ export default {
   },
   computed: {
     ...mapState(["addressBackUrl"]),
+	...mapState(['addressDataList']),	// 这里直接使用全局的地址信息
+	...mapState(['addressDataMap']),
     statusBarHeight() {
       return uni.getSystemInfoSync().statusBarHeight + "px";
     },
@@ -151,15 +153,27 @@ export default {
       uni.showLoading({ title: "加载中", mask: true });
       queryAddressBookList().then((res) => {
         if (res.code === 1) {
-          setTimeout(function () {
+			setTimeout(function () {
             uni.hideLoading();
-          }, 100);
-          this.testValue = true;
-          this.addressList = res.data;
-          this.isEmpty = false;
-          this.addressList.map((val, index) => {
-            if (val.isDefault === 1) {
-              this.isActive = index;
+			}, 100);
+			this.testValue = true;
+			this.addressList = res.data.reduce((result, info) => {
+				result.push({
+					...this.addressDataMap[info.addressId],
+					isDefault: info.isDefault,
+					consignee: info.consignee,
+					sex: info.sex,
+					phone: info.phone,
+					domitory: info.domitory,
+					bookId: info.id,
+					addressId: info.addressId
+				});
+				return result;
+			}, []);
+		this.isEmpty = false;
+        this.addressList.map((val, index) => {
+        if (val.isDefault === 1) {
+            this.isActive = index;
             }
           });
         }
@@ -181,7 +195,7 @@ export default {
             "编辑" +
             "&" +
             "id=" +
-            item.id,
+            item.bookId,
         });
       }
     },
@@ -199,7 +213,8 @@ export default {
       // // 提供默认接口
       item.isDefault = 1;
       this.isActive = index;
-      putAddressBookDefault({ id: item.id }).then((res) => {
+	  console.log(item);
+      putAddressBookDefault({ id: item.bookId }).then((res) => {
         if (res.code === 1) {
           uni.showToast({
             title: "默认地址设置成功",

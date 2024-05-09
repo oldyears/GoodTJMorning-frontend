@@ -97,7 +97,7 @@
           <view v-if="typeListData.length > 0">该分类下暂无菜品</view>
         </view>
       </view>
-      <view class="restaurant_close">店铺已打烊</view>
+      <!-- <view class="restaurant_close">店铺已打烊</view> -->
       <!-- end -->
       <view class="mask-box"></view>
       <!-- 底部去结算 -->

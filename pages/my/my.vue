@@ -107,9 +107,7 @@ export default {
     this.getList();
   },
   created() {},
-  mounted() {
-	  this.checkUserPermission();
-  },
+  mounted() {},
   onReady() {
     uni.getSystemInfo({
       success: (res) => {
@@ -122,16 +120,6 @@ export default {
     statusWord(obj) {
       return statusWord(obj.status, obj.time);
     },
-	checkUserPermission() {
-	      // 根据实际情况,检查用户是否为快递员
-	      // 例如可以向后端发送请求,获取用户角色信息
-		getUserPermission(1).then((res) => {
-			if (res.code === 1) {
-				this.isDeliver = res.data;
-			}
-		})
-	    this.isDeliver = false; // 假设用户为快递员
-	},
     getOvertime(time) {
       return getOvertime(time);
     },
@@ -172,7 +160,7 @@ export default {
 		this.setAddressBackUrl("/pages/my/my");
 		// TODO
 		uni.redirectTo({
-		  url: "/pages/address/address?form=" + "my",
+		  url: "/pages/employee/employee_login",
 		});
 	},
     async oneOrderFun(id) {

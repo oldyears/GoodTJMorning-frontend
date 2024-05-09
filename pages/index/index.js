@@ -173,6 +173,7 @@ export default {
 					success: (loginRes) => {
 						if (loginRes.errMsg === "login:ok") {
 							resolve(loginRes.code)
+							console.log(loginRes)
 						}
 					},
 				})
@@ -210,7 +211,6 @@ export default {
 										code: jsCode,
 										// 传递地理位置信息
 									}
-									console.log(userInfo.userInfo, 11)
 									// 获取定位信息
 									uni.getLocation({
 										type: 'gcj02', isHighAccuracy: true
@@ -231,6 +231,7 @@ export default {
 												.then((success) => {
 													if (success.code === 1) {
 														_this.setToken(success.data.token)
+														console.log(success.data.token)
 														// 保存配送费
 														_this.setDeliveryFee(success.data.deliveryFee)
 														// 保存商铺信息
@@ -242,8 +243,10 @@ export default {
 														_this.init()
 													}
 												})
-												.catch((err) => { })
-
+												.catch((err) => {
+													console.log("fail")
+												})
+											
 
 
 										}
