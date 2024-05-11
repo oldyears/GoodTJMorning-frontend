@@ -39,7 +39,7 @@
           <text class="text">配送费</text><text class="may">￥</text>{{ deliveryFee }}
         </view>
 		<view class="orderInfo">
-			<text class="text">送达时间</text>{{ arrivalTime }}
+			<text class="text">送达时间</text>{{ DeliveryTime }}
 		</view>
 		
         <view class="totalMoney">
@@ -80,11 +80,6 @@ export default {
       type: Number,
       default: 0,
     },
-	// 送达时间
-	arrivalTime: {
-	  type: String,
-	  default: "",
-	},
   },
   data() {
 	  return {

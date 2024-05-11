@@ -221,7 +221,6 @@ export default {
 					this.address = this.addressDataMap[res.data.addressId].campusName 
 									+ this.addressDataMap[res.data.addressId].addressName 
 									+ res.data.domitory
-					console.log(this.address)
 					this.phoneNumber = res.data.phone
 					this.nickName = res.data.consignee
 					this.gender = res.data.sex

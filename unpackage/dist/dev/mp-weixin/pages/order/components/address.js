@@ -183,11 +183,6 @@ var _default2 = {
       type: String,
       default: ""
     },
-    // 送达时间
-    arrivalTime: {
-      type: String,
-      default: ""
-    },
     // 当前选中
     tabIndex: {
       type: Number,

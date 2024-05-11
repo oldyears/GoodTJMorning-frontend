@@ -182,11 +182,6 @@ var _default2 = {
     orderDishPrice: {
       type: Number,
       default: 0
-    },
-    // 送达时间
-    arrivalTime: {
-      type: String,
-      default: ""
     }
   },
   data: function data() {

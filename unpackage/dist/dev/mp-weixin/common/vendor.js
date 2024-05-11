@@ -13523,7 +13523,6 @@ var _default = {
       return (0, _api.getAddressBookDefault)().then(function (res) {
         if (res.code === 1) {
           _this6.address = _this6.addressDataMap[res.data.addressId].campusName + _this6.addressDataMap[res.data.addressId].addressName + res.data.domitory;
-          console.log(_this6.address);
           _this6.phoneNumber = res.data.phone;
           _this6.nickName = res.data.consignee;
           _this6.gender = res.data.sex;

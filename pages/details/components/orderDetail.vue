@@ -41,7 +41,7 @@
           <view class="orderInfo">
             <text class="text">配送费</text>
             <text class="may">￥</text>
-            {{ orderDetailsData.deliveryFee }}
+            {{ deliveryFee }}
           </view>
           <view class="totalMoney">
             合计
@@ -56,6 +56,7 @@
   </view>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   // 获取父级传的数据
   props: {
@@ -75,6 +76,9 @@ export default {
       default: false,
     },
   },
+  computed: {
+    ...mapState(["deliveryFee"]),
+  }
 };
 </script>
 <style src="../../order/style.scss" lang="scss"></style>
