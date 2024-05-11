@@ -114,7 +114,7 @@ export default {
     };
   },
   onShow(options) {
-	this.$store.dispatch('fetchAddressData');	// 这里给全局地址信息赋值
+	// this.$store.dispatch('fetchAddressData');	// 这里给全局地址信息赋值
     this.getAddressList();
     if (options && options.form) {
       this.formRouter = "";

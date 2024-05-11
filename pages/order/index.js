@@ -63,10 +63,6 @@ export default {
 			],
 			activeRadio: '无需餐具', //存的是选中的value值
 			radioGroup: ['依据餐量提供', '无需餐具'],
-			popright: ['立即派送', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00',
-				'13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30',
-				'19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00'
-			],
 			newDateData: [],// 时间段
 			// styleType: 'button',
 			textTip: '',
@@ -88,6 +84,7 @@ export default {
 		}
 	},
 	computed: {
+		...mapState(['addressDataMap']),
 		// 菜品数据
 		orderListDataes: function () {
 			return this.orderListData()
@@ -142,23 +139,23 @@ export default {
 		this.remark = this.remarkData()
 		this.init()
 		// 存在options说明换地址了
-		if (this.addressData() && this.addressData().detail) {
+		if (this.addressData() && this.addressData().domitory) {
 			this.addressBookId = ''
 			const newAddress = this.addressData()
-			this.address = newAddress.provinceName + newAddress.cityName + newAddress.districtName + newAddress.detail
+			this.address = newAddress.campusName + newAddress.addressName + newAddress.domitory
 			this.phoneNumber = newAddress.phone
 			this.nickName = newAddress.consignee
 			this.gender = newAddress.sex
 
-			this.addressBookId = newAddress.id
-			this.addressLabel = getLableVal(newAddress.label)
+			this.addressBookId = newAddress.bookId
+			// this.addressLabel = getLableVal(newAddress.label)
 		} else {
 			// 默认地址查询
 			await this.getAddressBookDefault()
 		}
 
 		await this.getEstimatedDeliveryTime();
-		this.getDateDate()
+		// this.getDateDate()
 		this.setArrivalTime(this.arrivalTime)
 		this.setGender(this.gender)
 	},
@@ -182,31 +179,31 @@ export default {
 		},
 		// 获取用户送餐期望时间
 		async getEstimatedDeliveryTime() {
-			const result = await getEstimatedDeliveryTime({ shopId: this.shopInfo().shopId, customerAddress: this.address });
-			this.arrivalTime = dayjs(result.data).format('HH:mm')
-			this.orderTime = result.data
+			dayjs.locale('zh-cn')
+			this.orderTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
+			this.arrivalTime = dayjs().add(1, 'day').format('YYYY-MM-DD') + " 07:30:00"
 		},
-		// 根据系统派送时间 格式化时间  [16:00,16:30]
-		getDateDate() {
-			let currentDayjs = dayjs(this.orderTime);
-			const list = ['立即派送']
-			if (!(currentDayjs.hour() >= 22 && currentDayjs.minute() > 30)) {
-				if (currentDayjs.minute() > 30) {
-					currentDayjs = currentDayjs.add(1, 'hour').set('minute', 0)
-				} else {
-					currentDayjs = currentDayjs.set('minute', 30)
-				}
-				while (true) {
-					if (currentDayjs.hour() === 23 && currentDayjs.minute() === 30) {
-						break
-					}
-					const start = `${currentDayjs.format("HH")}:${currentDayjs.format('mm')}`;
-					list.push(`${start}`)
-					currentDayjs = currentDayjs.add(30, 'minute')
-				}
-			}
-			this.newDateData = list
-		},
+		// // 根据系统派送时间 格式化时间  [16:00,16:30]
+		// getDateDate() {
+		// 	let currentDayjs = dayjs(this.orderTime);
+		// 	const list = ['立即派送']
+		// 	if (!(currentDayjs.hour() >= 22 && currentDayjs.minute() > 30)) {
+		// 		if (currentDayjs.minute() > 30) {
+		// 			currentDayjs = currentDayjs.add(1, 'hour').set('minute', 0)
+		// 		} else {
+		// 			currentDayjs = currentDayjs.set('minute', 30)
+		// 		}
+		// 		while (true) {
+		// 			if (currentDayjs.hour() === 23 && currentDayjs.minute() === 30) {
+		// 				break
+		// 			}
+		// 			const start = `${currentDayjs.format("HH")}:${currentDayjs.format('mm')}`;
+		// 			list.push(`${start}`)
+		// 			currentDayjs = currentDayjs.add(30, 'minute')
+		// 		}
+		// 	}
+		// 	this.newDateData = list
+		// },
 		// 获取地址
 		getAddressList() {
 			this.testValue = false
@@ -221,30 +218,25 @@ export default {
 		getAddressBookDefault() {
 			return getAddressBookDefault().then(res => {
 				if (res.code === 1) {
-					this.addressBookId = ''
-					this.address = res.data.provinceName + res.data.cityName + res.data.districtName + res.data
-						.detail
+					this.address = this.addressDataMap[res.data.addressId].campusName 
+									+ this.addressDataMap[res.data.addressId].addressName 
+									+ res.data.domitory
+					console.log(this.address)
 					this.phoneNumber = res.data.phone
 					this.nickName = res.data.consignee
 					this.gender = res.data.sex
 					this.addressBookId = res.data.id
-					this.addressLabel = getLableVal(res.data.label)
-					this.tagLabel = res.data.label
+					// domitory
 				}
 			})
 		},
 		// 去地址页面
 		goAddress() {
 			this.setAddressBackUrl('/pages/order/index')
-			if (this.addressList.length === 0) {
-				uni.redirectTo({
-					url: '/pages/addOrEditAddress/addOrEditAddress'
-				})
-			} else {
-				uni.redirectTo({
-					url: '/pages/address/address'
-				})
-			}
+			uni.redirectTo({
+				url: '/pages/address/address'
+			})
+			
 
 		},
 		// // 重新拼装image
@@ -286,16 +278,13 @@ export default {
 				payMethod: 1,
 				addressBookId: this.addressBookId,
 				remark: this.remark,
-				estimatedDeliveryTime: this.arrivalTime === '立即派送' ? presentFormat() : dateFormat(this.isTomorrow,
-					this.arrivalTime),
-				deliveryStatus: this.arrivalTime === '立即派送' ? 1 : 0,
+				estimatedDeliveryTime: this.arrivalTime,
+				deliveryStatus: 0,
 				remark: this.remark,
 				tablewareStatus: this.status,
 				tablewareNumber: this.num,
 				packAmount: this.orderDishNumber,
 				amount: this.orderDishPrice,
-				shopId: this.shopInfo().shopId,
-				deliveryFee: this.deliveryFee()
 			}
 
 			submitOrderSubmit(params).then(res => {

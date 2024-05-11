@@ -156,6 +156,7 @@ export default {
 			"setLodding",
 			"setToken", //设置token
 			"setDeliveryFee", //设置配送费
+			"setAddress",	// 地址信息
 		]),
 		// 从vuex信息
 		...mapState([
@@ -166,6 +167,7 @@ export default {
 			"lodding",
 			"token", //token
 			"deliveryFee", //配送费
+			"addressDataMap", // 所有的地址信息
 		]),
 		loginSync() {
 			return new Promise((resolve, reject) => {
@@ -233,7 +235,7 @@ export default {
 														_this.setToken(success.data.token)
 														console.log(success.data.token)
 														// 保存配送费
-														_this.setDeliveryFee(success.data.deliveryFee)
+														_this.setDeliveryFee(1)
 														// 保存商铺信息
 														_this.setShopInfo({
 															shopName: success.data.shopName,
@@ -280,6 +282,7 @@ export default {
 			})
 			// 调用一次购物车集合---初始化
 			this.getTableOrderDishListes()
+			this.$store.dispatch('fetchAddressData')
 		},
 		// 点击左边的栏目切换
 		async swichMenu(params, index) {

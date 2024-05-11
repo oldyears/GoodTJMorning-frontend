@@ -361,13 +361,6 @@ export const repetitionOrder = (params) =>
 	})
 
 
-// 获取用户送餐期望时间
-export const getEstimatedDeliveryTime = (params) =>
-	request({
-		url: `/user/order/getEstimatedDeliveryTime`,
-		method: 'get',
-		params
-	})
 // 查询用户订单支付状态列表信息
 export const queryOrdersCheckStatus = (params) =>
 	request({

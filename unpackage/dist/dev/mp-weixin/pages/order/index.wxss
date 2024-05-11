@@ -190,13 +190,10 @@
   position: relative;
   padding-left: 76rpx;
 }
-.order_content.data-v-0ca91b30  .new_address .top .address_name .address .tag {
-  position: absolute;
-  left: 0;
-  top: 8rpx;
-}
 .order_content.data-v-0ca91b30  .new_address .top .address_name .address .word {
   opacity: 1;
+  position: absolute;
+  left: 0;
   font-size: 34rpx;
   font-family: PingFangSC, PingFangSC-Medium;
   font-weight: 550;

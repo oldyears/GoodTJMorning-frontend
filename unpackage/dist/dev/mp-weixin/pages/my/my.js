@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uniNavBar: function () {
-      return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 185))
+      return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 193))
     },
   }
 } catch (e) {
@@ -184,17 +184,17 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var HeadInfo = function HeadInfo() {
   __webpack_require__.e(/*! require.ensure | pages/my/components/headInfo */ "pages/my/components/headInfo").then((function () {
-    return resolve(__webpack_require__(/*! ./components/headInfo.vue */ 256));
+    return resolve(__webpack_require__(/*! ./components/headInfo.vue */ 264));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var OrderInfo = function OrderInfo() {
   __webpack_require__.e(/*! require.ensure | pages/my/components/orderInfo */ "pages/my/components/orderInfo").then((function () {
-    return resolve(__webpack_require__(/*! ./components/orderInfo.vue */ 263));
+    return resolve(__webpack_require__(/*! ./components/orderInfo.vue */ 271));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var OrderList = function OrderList() {
   __webpack_require__.e(/*! require.ensure | pages/my/components/orderList */ "pages/my/components/orderList").then((function () {
-    return resolve(__webpack_require__(/*! ./components/orderList.vue */ 270));
+    return resolve(__webpack_require__(/*! ./components/orderList.vue */ 278));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 //最近订单

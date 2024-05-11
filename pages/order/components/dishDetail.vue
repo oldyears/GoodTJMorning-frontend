@@ -38,6 +38,10 @@
         <view class="orderInfo">
           <text class="text">配送费</text><text class="may">￥</text>{{ deliveryFee }}
         </view>
+		<view class="orderInfo">
+			<text class="text">送达时间</text>{{ arrivalTime }}
+		</view>
+		
         <view class="totalMoney">
           合计<text class="text"><text>￥</text>{{ orderDishPrice.toFixed(2) }}</text>
         </view>
@@ -47,6 +51,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import dayjs from "@/utils/lib/dayjs.min.js";
 export default {
   // 获取父级传的数据
   props: {
@@ -75,10 +80,32 @@ export default {
       type: Number,
       default: 0,
     },
+	// 送达时间
+	arrivalTime: {
+	  type: String,
+	  default: "",
+	},
+  },
+  data() {
+	  return {
+		  DeliveryTime:null
+	  }
+  },
+  mounted() {
+	  this.getCurrentDate()
+  },
+  methods: {
+	getCurrentDate() {
+		const temp = new Date();
+		temp.setDate(temp.getDate() + 1);
+		this.DeliveryTime = temp.toISOString().slice(0, 10) + " 07:00-07:30";
+		dayjs.locale('zh-cn');
+		const orderTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
+	},
   },
   computed: {
     ...mapState(["deliveryFee", "shopInfo"]),
-  },
+  }
 };
 </script>
 <style src="./../style.scss" lang="scss" scoped></style>

@@ -96,13 +96,15 @@ $desc-font-color: #818693;
           white-space: nowrap;
           position: relative;
           padding-left: 76rpx;
-          .tag {
-            position: absolute;
-            left: 0;
-            top: 8rpx;
-          }
+          // .tag {
+          //   position: absolute;
+          //   left: 0;
+          //   top: 8rpx;
+          // }
           .word {
             opacity: 1;
+			position: absolute;
+			left: 0;
             font-size: 34rpx;
             font-family: PingFangSC, PingFangSC-Medium;
             font-weight: 550;
